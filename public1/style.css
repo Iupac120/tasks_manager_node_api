@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: aquamarine;
+}
+#form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px;
+}
+input{
+    padding: 5px 5px;
+    margin: 10px 5px;
+}
+button{
+    padding: 5px 5px;
+    margin: 10px 5px;
+    background-color: red;
+
+}
