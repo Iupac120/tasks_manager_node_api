@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'price must be provided']
     },
-    featued:{
+    featured:{
         type:Boolean,
         default: false
     },
@@ -30,7 +30,9 @@ const ProductSchema = new mongoose.Schema({
             message: '{VALUE} not supported'
         }
         //enum: ['ikea','liddy','caressa','marcos']
-    }
+    } 
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('Product', ProductSchema)

@@ -7,6 +7,6 @@ const errorHandler = (err, req, res, next) => {
     }
     console.log('error handler')
     console.log('other error')
-    return res.status(500).json({msg:`Something went wrong, please try again`})
+    return res.status(500).json(`Something went wrong, please try again`)
 }
 module.exports = errorHandler
