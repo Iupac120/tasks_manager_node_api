@@ -5,14 +5,22 @@ app.use(express.static('./public'))
 const connectDB = require('./db/connectDB')
 const notFound = require('./middleware/not-Found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
 const PORT = process.env.PORT || 3000
+app.use(express.urlencoded({extended: false}))
+app.use(express.static('/public'))
+app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
 //routes
 const tasks = require('./routes/task')
 const products = require('./routes/product')
-
+const auth = require('./routes/auth')
 app.use(express.json())
 app.use('/api/v1/tasks', tasks)
 app.use('/api/v1/products', products)
+app.use('/api/v1', auth)
 app.get('/', (req,res) =>{
     res.send('Task manager')
 })

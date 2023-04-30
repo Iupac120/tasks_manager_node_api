@@ -51,6 +51,7 @@ const getSingleProduct = async(req,res,next) => {
         }
         res.status(200).json({product})
     }catch(err){
+        console.log(err)
         return next(createCustomError('Server error', 500))
     }
 }
@@ -73,22 +74,22 @@ const updateProduct = async(req, res, next) =>{
         if (!product){
             return next(createCustomError(`product cannot be found`,401))
         }
-        res.status(200).json({product})
+        res.status(200).json({msg: `product with has been updated`})
     }catch(err){
         return next(createCustomError(`Server error`,500))
     }
 }
 const deleteProduct = async(req,res,next) =>{
-    try{
+    
         const {id: taskID} = req.params
         const product = await Product.findOneAndDelete({_id: taskID})
         if (!product){
-            return next(createCustomError(`Product not found`, 401))
+            return next(createCustomError(`Product not found`, 404))
         }
-        res.status(200).json({product})
-    }catch(err){
-        return next(createCustomError('Server error', 500))
-    }
+        res.status(200).json({msg:`product has been deleted`})
+    
+        
+    
 }
 
 module.exports = {
