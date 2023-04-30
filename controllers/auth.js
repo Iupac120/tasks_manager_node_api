@@ -34,6 +34,7 @@ const login = async(req,res,next) => {
         return res.status(402).json({msg:`Must provide password and email`})
     }
     const foundUser = await Auth.findOne({email})
+    console.log(foundUser.lastname)
     if (!foundUser){
         return next(createCustomError('Email does not exist', 401))
     }
@@ -42,20 +43,21 @@ const login = async(req,res,next) => {
         return next(createCustomError('Incorrect password', 401))
     }
     const accessToken = jwt.sign(
-        {"lastname":foundUser.lastname},
+        {lastname:foundUser.lastname},
         process.env.ACCESS_TOKEN_SECRET,
         {expiresIn: '20d'}
     )
     const refreshToken = jwt.sign(
-        {"lastname":foundUser.lastname},
+        {lastname:foundUser.lastname},
         process.env.REFRESH_TOKEN_SECRET,
         {expiresIn:'90d'}
     )
     //refresh token is save in the database
     foundUser.refreshToken = refreshToken
     await foundUser.save()
+    console.log(foundUser.refreshToken)
     //refresh token is send to frontend as a cookie best secured with httponly
-    res.cookie('jwt', refreshToken, {httpOnly: true, secure: true, maxAge: 24*60*60*1000})
+    res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24*60*60*1000})
     res.status(200).json({accessToken,"message":"welcome to to my website"})
 }
 

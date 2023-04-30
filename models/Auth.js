@@ -12,12 +12,20 @@ const AuthSchema = new mongoose.Schema({
     email:{
         type: String,
         required: [true, 'must provide a name'],
+        match: [
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            'Please provide a valid email',
+          ],      
         trim: true
     },
     password:{
         type: String,
         required: [true, 'must provide a name'],
         trim: true
+    },
+    refreshToken:{
+        type: String,
+        default:'token'
     }
 },{timestamps: true})
 
