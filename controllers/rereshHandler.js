@@ -19,7 +19,11 @@ const refreshHandler = async(req, res, next) => {
         return next(createCustomError('Access denied', 403))
     }
     const accessToken = jwt.sign(
-        {"lastname":decoded.lastname},
+        {userInfo:{
+            id:foundUser._id,
+            lastname:foundUser.lastname,
+            roles:foundUser.roles
+        }},
         process.env.ACCESS_TOKEN_SECRET,
         {expiresIn: '30d'}
     )

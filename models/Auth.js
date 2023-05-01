@@ -23,10 +23,15 @@ const AuthSchema = new mongoose.Schema({
         required: [true, 'must provide a name'],
         trim: true
     },
-    refreshToken:{
-        type: String,
-        default:'token'
-    }
+    roles:{
+        User:{
+            type: Number,
+            default:1993
+        },
+        Admin:Number,
+        Editor:Number
+    },
+    refreshToken:String
 },{timestamps: true})
 
 module.exports = mongoose.model('Auth', AuthSchema)

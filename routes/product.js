@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
-
+const {roleList} = require('../config/roles_list')
+const {verifyRoles} = require('../middleware/verifyRoles')
 const {getAllProductStatic, getAllProducts, getSingleProduct,
 createProduct, updateProduct, deleteProduct} = require('../controllers/products')
 router.get('/static', getAllProductStatic)
-router.route('/').get(getAllProducts).post(createProduct)
+router.route('/').get(getAllProducts).post(verifyRoles(roleList.Admin,roleList.Editor),createProduct)
 
-router.route('/:id').get(getSingleProduct).patch(updateProduct).delete(deleteProduct)
+router.route('/:id').get(getSingleProduct).patch(verifyRoles(roleList.Editor,roleList.Admin),updateProduct).delete(verifyRoles(roleList.Admin),deleteProduct)
 
 module.exports = router

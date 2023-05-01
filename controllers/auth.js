@@ -43,7 +43,11 @@ const login = async(req,res,next) => {
         return next(createCustomError('Incorrect password', 401))
     }
     const accessToken = jwt.sign(
-        {lastname:foundUser.lastname},
+        {userInfo:{
+            id:foundUser._id,
+            lastname:foundUser.lastname,
+            roles:foundUser.roles
+        }},
         process.env.ACCESS_TOKEN_SECRET,
         {expiresIn: '20d'}
     )
