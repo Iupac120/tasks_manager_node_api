@@ -10,7 +10,12 @@ const verifyJWT = (req, res, next) => {
     const authToken = authHeader.split(' ')[1]
     try{
         const decoded = jwt.verify(authToken, process.env.ACCESS_TOKEN_SECRET)
-        const {id,lastname,roles} = decoded.userInfo
+        req.user = {id:decoded.userInfo.id,lastname:decoded.userInfo.lastname,roles:decoded.userInfo.roles}
+        //req.user = {id:id, lastname:lastname, roles: roles}
+        console.log(req.user)
+        //console.log(id)
+        
+        //console.log(req.user)
         next()
     }catch(err){
         res.status(500).json({msg: err.message})

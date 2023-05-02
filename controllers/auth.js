@@ -23,6 +23,7 @@ const register = async(req,res, next) => {
             email
         })
         await newUser.save()
+        res.status(200).json({msg:`You are registered, ${firstname}`})
     }catch(err){
         res.status(500).json({'message':err.message})
     }
@@ -39,6 +40,8 @@ const login = async(req,res,next) => {
         return next(createCustomError('Email does not exist', 401))
     }
     const matchPassword = await bcrypt.compare(password, foundUser.password)
+    const rolevalue = Object.values(foundUser.roles)
+    console.log(rolevalue)
     if (!matchPassword){
         return next(createCustomError('Incorrect password', 401))
     }

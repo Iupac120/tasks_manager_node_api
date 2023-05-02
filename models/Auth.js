@@ -28,8 +28,14 @@ const AuthSchema = new mongoose.Schema({
             type: Number,
             default:1993
         },
-        Admin:Number,
-        Editor:Number
+        Admin:{
+            type:Number,
+            default:1989
+        },
+        Editor:{
+            type:Number,
+            default:1991
+        }
     },
     refreshToken:String
 },{timestamps: true})
